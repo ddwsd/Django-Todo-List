@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{% url 'add' %}" method="POST" role="form">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Add tasks</button>
+</form>
+<a href="{% url 'delete' %}">
+    <button type="submit">Delete completed tasks</button>
+</a>
+
+<ul>
+    {% for i in myList %}
+    {% if i.complete %}
+    <li> <a href="{% url 'complete' i.id %}"><del>{{i.listText}}</del></a>
+    </li>
+    {% else %}
+    <li> <a href="{% url 'complete' i.id %}">{{i.listText}}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
